@@ -1,4 +1,4 @@
-/**Calculate Wages till a condition of total working hours of 160 or max days of 20 is reached for a month*/
+/**Store the Daily Wage along with the Total Wage*/
 const PART_TIME_HOURS=4;
 const FULL_TIME_HOURS=8;
 const WAGE_PER_HOUR=20;
@@ -19,11 +19,17 @@ switch(empCheck){
     return 0;
     }
 }
+function calculateDailyWage(empHrs){
+    return empHrs*WAGE_PER_HOUR;
+}
 let totalEmpHrs=0,totalWorkingDays=0;
+let empDailyWageArr=new Array();
 while( totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS)
 {   totalWorkingDays++;
     let empCheck=Math.floor(Math.random()*10)%3;
-    totalEmpHrs+=getWorkingHours(empCheck);
+    let empHrs=getWorkingHours(empCheck);
+    totalEmpHrs+=empHrs;
+    empDailyWageArr.push(calculateDailyWage(empHrs));
 }
-let empWage= totalEmpHrs*WAGE_PER_HOUR;
+let empWage= calculateDailyWage(totalEmpHrs);
 console.log("Total Days: \t "+totalWorkingDays+" Total hours: \t "+totalEmpHrs+" Employee Wage: \t "+empWage);
