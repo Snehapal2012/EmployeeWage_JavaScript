@@ -1,19 +1,24 @@
 /**Ability to create Employee Payroll Data with id, name and salary */
+/**Ability to extend Employee Payroll Data to store gender and start date */
 class EmployeePayrollData{
     //property
     id;
     salary;
-    constructor(id,name,salary){
-        this.id=id;
-        this.name=name;
-        this.salary=salary;
+    gender;
+    startDate;
+    constructor(...params){
+        this.id=params[0];
+        this.name=params[1];
+        this.salary=params[2];
+        this.gender=params[3];
+        this.startDate=params[4];
     }
     //getter and setter method
     get id(){ 
         return this._id;
     }
     set id(id){
-        this._id=name;
+        this._id=id;
     }
     get name(){ 
         return this._name;
@@ -27,8 +32,22 @@ class EmployeePayrollData{
     set salary(salary){
         this._salary=salary;
     }
+    get gender(){ 
+        return this._gender;
+    }
+    set gender(gender){
+        this._gender=gender;
+    }
+    get startDate(){ 
+        return this._startDate;
+    }
+    set startDate(startDate){
+        this._startDate=startDate;
+    }
     toString(){
-        return "Id = "+this.id+", Name = "+this.name+", Salary = "+this.salary;
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const employeeDate = this.startDate == undefined ? "undefined" : this.startDate.toLocaleDateString("en-US", options);
+        return "Id = "+this.id+", Name = "+this.name+", Gender = "+this.gender+", Salary = "+this.salary+", StartDate = "+this.startDate;
     }
 }
 let employeePayrollData=new EmployeePayrollData(1, "Mark", 30000);
@@ -36,3 +55,5 @@ console.log(employeePayrollData.toString());
 employeePayrollData.id=2;
 employeePayrollData.name="John";
 console.log(employeePayrollData.toString());
+let newEmployeePayrollDate=new EmployeePayrollData(1,"Terissa","F",30000,new Date());
+console.log(newEmployeePayrollDate.toString());
