@@ -1,6 +1,9 @@
 /**Ability to create Employee Payroll Data with id, name and salary */
 /**Ability to extend Employee Payroll Data to store gender and start date */
 /**Ability to check the name starts with capital and has atleast 3 characters - Use Regex Pattern - Use Try Catch in case of Error */
+/**Ability to check the employee id and salary are non zero positive number, the gender is M or F and date is not a future date
+- Use Regex Pattern
+- Use Try Catch in case of Error */
 class EmployeePayrollData{
     //property
     id;
@@ -19,7 +22,10 @@ class EmployeePayrollData{
         return this._id;
     }
     set id(id){
+        let idRegex=RegExp('^[1-9][0-9]*$');
+        if(idRegex.test(id))
         this._id=id;
+        else throw 'ID is Incorrect!';
     }
     get name(){ 
         return this._name;
@@ -34,19 +40,28 @@ class EmployeePayrollData{
         return this._salary;
     }
     set salary(salary){
+        let salaryRegex=RegExp('^[1-9][0-9]*$');
+        if(salaryRegex.test(salary))
         this._salary=salary;
+        else throw 'Salary is Incorrect!';
     }
     get gender(){ 
         return this._gender;
     }
     set gender(gender){
+        let genderRegex=RegExp('^[F][M]*$');
+        if(genderRegex.test(gender))
         this._gender=gender;
+        else throw 'Gender is Incorrect!';
     }
     get startDate(){ 
         return this._startDate;
     }
     set startDate(startDate){
         this._startDate=startDate;
+        if(startDate<=new Date())
+        this._startDate=startDate;
+        else throw 'Start Date is Incorrect!';
     }
     toString(){
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -57,10 +72,10 @@ class EmployeePayrollData{
 let employeePayrollData=new EmployeePayrollData(1, "Mark", 30000);
 console.log(employeePayrollData.toString());
 try{
-    employeePayrollData.name="John";
-    console.log(employeePayrollData.toString());
+    let checkEmployeePayrollData=new EmployeePayrollData(20,"Sneha",30000,"F",new Date());
+    console.log(checkEmployeePayrollData.toString());
 }catch (e){
     console.error(e);
 }
-let newEmployeePayrollDate=new EmployeePayrollData(1,"Terissa","F",30000,new Date());
+let newEmployeePayrollDate=new EmployeePayrollData(1,"Terissa",30000,"F",new Date());
 console.log(newEmployeePayrollDate.toString());
