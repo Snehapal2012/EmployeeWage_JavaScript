@@ -1,9 +1,10 @@
-/**Use the Daily Wage Array perform following operations using Array Helper Functions*/
+/**Store the Day and the Daily Wage along with the Total Wage - Use Map to store Day wise Wage*/
 const PART_TIME_HOURS=4;
 const FULL_TIME_HOURS=8;
 const WAGE_PER_HOUR=20;
 const NUM_OF_WORKING_DAYS=20;
 const MAX_HRS_IN_MONTH=160;
+let empDailyWageMap=new Map();
 function getWorkingHours(empCheck){
 switch(empCheck){
     case 0: console.log("Employee worked as part-time employee\nWorking hours: "+PART_TIME_HOURS);
@@ -30,6 +31,7 @@ while( totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS
     let empHrs=getWorkingHours(empCheck);
     totalEmpHrs+=empHrs;
     empDailyWageArr.push(calculateDailyWage(empHrs));
+    empDailyWageMap.set(totalWorkingDays, calculateDailyWage(empHrs));
 }
 //Array Helper Functions
 let totEmpWage=0;
@@ -80,3 +82,8 @@ function totalDaysWorked(numOfDays,dailyWage){
     return numOfDays;
 }
 console.log("Number of days the Employee Worked: "+empDailyWageArr.reduce(totalDaysWorked,0));
+console.log(empDailyWageMap);
+function totalWages(totalWage,dailyWage){
+    return totalWage+dailyWage;
+}
+console.log("Emp Wage Map totalHrs: "+Array.from(empDailyWageMap.values()).reduce(totalWages,0));
