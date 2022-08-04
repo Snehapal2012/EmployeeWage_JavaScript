@@ -1,10 +1,11 @@
-/**Store the Day and the Daily Wage along with the Total Wage - Use Map to store Day wise Wage*/
+/**Use the Daily Wage Map and Daily Hour Map perform following operations using Arrow Functions*/
 const PART_TIME_HOURS=4;
 const FULL_TIME_HOURS=8;
 const WAGE_PER_HOUR=20;
 const NUM_OF_WORKING_DAYS=20;
 const MAX_HRS_IN_MONTH=160;
 let empDailyWageMap=new Map();
+let empDailyHrsMap=new Map();
 function getWorkingHours(empCheck){
 switch(empCheck){
     case 0: console.log("Employee worked as part-time employee\nWorking hours: "+PART_TIME_HOURS);
@@ -31,6 +32,7 @@ while( totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS
     let empHrs=getWorkingHours(empCheck);
     totalEmpHrs+=empHrs;
     empDailyWageArr.push(calculateDailyWage(empHrs));
+    empDailyHrsMap.set(totalWorkingDays,empHrs);
     empDailyWageMap.set(totalWorkingDays, calculateDailyWage(empHrs));
 }
 //Array Helper Functions
@@ -87,3 +89,22 @@ function totalWages(totalWage,dailyWage){
     return totalWage+dailyWage;
 }
 console.log("Emp Wage Map totalHrs: "+Array.from(empDailyWageMap.values()).reduce(totalWages,0));
+//UC9 Arrow Functions
+const findTotal=(totalVal,dailyVal)=>{
+    return totalVal+dailyVal;
+}
+let count=0;
+let totalHours=Array.from(empDailyHrsMap.values()).reduce(findTotal,0);
+let totalSalary=empDailyWageArr.filter(dailyWage => dailyWage > 0).reduce(findTotal,0);
+console.log("Emp wage with Arrow : -----------\t"+"Total Hours: \t"+totalHours+"\t Total Wage: "+totalSalary);
+let nonWorkingDays=new Array();
+let partWorkingDays=new Array();
+let fullWorkingDays=new Array();
+empDailyHrsMap.forEach((value,key,map)=>{
+    if(value == 8) fullWorkingDays.push(key);
+    else if(value ==4) partWorkingDays.push(key);
+    else nonWorkingDays.push(key);
+});
+console.log("Full Working Days: \t"+fullWorkingDays);
+console.log("Part Working Days: \t"+partWorkingDays);
+console.log("Non Working Days: \t"+nonWorkingDays);
