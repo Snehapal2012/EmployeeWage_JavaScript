@@ -1,5 +1,6 @@
 /**Use the Daily Wage Map and Daily Hour Map perform following operations using Arrow Functions*/
 /**Ability to store the Day, Hours Worked and Wage Earned in a single object.*/
+/**Perform following Object operations using Arrow Functions*/
 const PART_TIME_HOURS=4;
 const FULL_TIME_HOURS=8;
 const WAGE_PER_HOUR=20;
@@ -120,3 +121,13 @@ console.log("Part Working Days: \t"+partWorkingDays);
 console.log("Non Working Days: \t"+nonWorkingDays);
 //UC10 Object Creation
 console.log("UC 10 Showing Daily Hours Worked and Wage Earned: "+empDailyHrsAndWageArr);
+//UC11A to UCD using Object functions along with Arrow functions
+totalWages=empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyWage>0).reduce((totalWage,dailyHrsAndWage) => totalWage+=dailyHrsAndWage.dailyWage,0);
+totalHours=empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyWage>0).reduce((totalHours,dailyHrsAndWage) => totalHours+=dailyHrsAndWage.dailyHours,0);
+console.log("UC11A Total Hours: \t"+totalHours+"\tTotal Wages: \t"+totalWages);
+console.log("UC11B Logging Full work days");
+empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours==8).forEach(dailyHrsAndWage => console.log(dailyHrsAndWage.toString()));
+let partWorkingDayStrArr=empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours==4).map(dailyHrsAndWage => dailyHrsAndWage.toString());
+console.log("\nUC11C PartWorkingDayStrings: "+partWorkingDayStrArr);
+let nonWorkingDayNums=empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 0).map(dailyHrsAndWage => dailyHrsAndWage.dayNum);
+console.log("UC11D NonWorkingDayNums: "+nonWorkingDayNums);
